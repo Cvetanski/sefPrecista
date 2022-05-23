@@ -1,57 +1,55 @@
 <?php
 
-namespace App\Models;
+    namespace App\Models;
 
-use App\Models\Role;
-use App\Permissions\HasPermissionsTrait;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+    use App\Traits\HasPermissionsTrait;
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Notifications\Notifiable;
+    use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
-    use HasApiTokens, HasFactory, Notifiable;
-    use HasPermissionsTrait;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-
-    protected  $table ='users';
-
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'username',
-        'email',
-        'phone',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function role()
+    class User extends Authenticatable
     {
-        return $this->belongsToMany(Role::class,'user_role','role_id');
+        use HasApiTokens, HasFactory, Notifiable;
+        use HasPermissionsTrait;
+
+        /**
+         * The attributes that are mass assignable.
+         *
+         * @var string[]
+         */
+
+        protected $table = 'users';
+
+        protected $fillable = [
+            'first_name',
+            'last_name',
+            'username',
+            'email',
+            'phone',
+        ];
+
+        /**
+         * The attributes that should be hidden for serialization.
+         *
+         * @var array
+         */
+        protected $hidden = [
+            'password',
+            'remember_token',
+        ];
+
+        /**
+         * The attributes that should be cast.
+         *
+         * @var array
+         */
+        protected $casts = [
+            'email_verified_at' => 'datetime',
+        ];
+
+        public function role()
+        {
+            return $this->belongsToMany(Role::class, 'user_role', 'role_id');
+        }
     }
-}

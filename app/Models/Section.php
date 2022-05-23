@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Models;
+    namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
-{
-    protected $table = 'sections';
-
-    protected $fillable = [
-        'title',
-        'description',
-        'slug'
-    ];
-
-    public function categories()
+    class Section extends Model
     {
-        return $this->hasMany(Categories::class,'section_id','id');
+        protected $table = 'sections';
+
+        protected $fillable = [
+            'title',
+            'description',
+            'slug',
+        ];
+
+        public function categories()
+        {
+            return $this->hasMany(Category::class, 'section_id', 'id');
+        }
     }
-}
