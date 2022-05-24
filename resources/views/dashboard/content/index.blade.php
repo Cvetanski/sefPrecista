@@ -1,8 +1,4 @@
 @extends('adminlte::page')
-{{--@section('css')--}}
-{{--    @include('dashboard.every_page_css')--}}
-
-{{--@endsection--}}
 @section('title',  "Сите Содржини")
 @section('content')
     <div class="row">
@@ -20,10 +16,8 @@
                         <tr>
                             <th scope="col">Реден број</th>
                             <th scope="col">Име</th>
-{{--                            <th scope="col">Опис</th>--}}
                             <th scope="col">Краток Опис</th>
                             <th scope="col">Припаѓа на Категорија</th>
-                            <th scope="col">Припаѓа на Поткатегорија</th>
                             <th scope="col">Слика</th>
                             <th scope="col">Статус</th>
                             <th scope="col">Акција</th>
@@ -50,12 +44,12 @@
         $('.read-more-show, .read-more-hide').removeClass('hide_content')
 
         // Set up the toggle effect:
-        $('.read-more-show').on('click', function(e) {
+        $('.read-more-show').on('click', function (e) {
             $(this).next('.read-more-content').removeClass('hide_content');
             $(this).addClass('hide_content');
             e.preventDefault();
         });
-        $('.read-more-hide').on('click', function(e) {
+        $('.read-more-hide').on('click', function (e) {
             var p = $(this).parent('.read-more-content');
             p.addClass('hide_content');
             p.prev('.read-more-show').removeClass('hide_content'); // Hide only the preceding "Read More"
@@ -64,8 +58,8 @@
     </script>
 
     <script>
-        $(function() {
-            $('.toggle-class').change(function() {
+        $(function () {
+            $('.toggle-class').change(function () {
                 let publication_status = $(this).prop('checked') === true ? 1 : 0;
                 let content_id = $(this).data('id');
                 // console.log(published);
@@ -74,7 +68,7 @@
                     dataType: "json",
                     url: '{{route ('publish-unpublish-content') }}',
                     data: {'publication_status': publication_status, 'content_id': content_id},
-                    success: function(data){
+                    success: function (data) {
                         console.log(data.success)
                     }
                 });

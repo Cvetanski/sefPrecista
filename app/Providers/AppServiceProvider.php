@@ -3,7 +3,9 @@
     namespace App\Providers;
 
     use App\Models\Category;
+    use App\Models\Content;
     use App\Observers\CategoryObserver;
+    use App\Observers\ContentObserver;
     use Illuminate\Support\Facades\Gate;
     use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +29,7 @@
         public function boot(): void
         {
             Category::observe(CategoryObserver::class);
+            Content::observe(ContentObserver::class);
 
             Gate::define('super_admin', function ($user) {
                 if ($user->user_role()->slug == 'super_admin') {

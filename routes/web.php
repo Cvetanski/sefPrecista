@@ -1,13 +1,12 @@
 <?php
 
     use App\Http\Controllers\Categories\CategoriesController;
-    use App\Http\Controllers\CKeditor\CKeditorController;
+    use App\Http\Controllers\CKEditor\CKeditorController;
     use App\Http\Controllers\Content\ContentController;
     use App\Http\Controllers\Home\HomeController;
     use App\Http\Controllers\ImagesController\ImagesController;
     use App\Http\Controllers\NewsController\NewsController;
     use App\Http\Controllers\SliderController\SliderController;
-    use App\Http\Controllers\SubCategories\SubCategories;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Route;
 
@@ -36,15 +35,8 @@
         Route::resource('categories', CategoriesController::class,);
         Route::get('categories/publish-unpublish-category', [CategoriesController::class, 'publish'])->name('publish-unpublish-category');
         //Content
-        Route::prefix('content')->group(function () {
-            Route::get('/', [ContentController::class, 'index'])->name('content');
-            Route::get('/create', [ContentController::class, 'create'])->name('content.create');
-            Route::post('/store', [ContentController::class, 'store'])->name('content.store');
-            Route::get('/delete/{id}', [ContentController::class, 'delete'])->name('content.delete');
-            Route::get('/edit/{id}', [ContentController::class, 'edit'])->name('content.edit');
-            Route::put('/update/{id}', [ContentController::class, 'update'])->name('content.update');
-            Route::get('/publish-unpublish-content', [ContentController::class, 'publish'])->name('publish-unpublish-content');
-        });
+        Route::resource('content', ContentController::class);
+        Route::get('content/publish-unpublish-content', [ContentController::class, 'publish'])->name('publish-unpublish-content');
 
         Route::prefix('slider')->group(function () {
             Route::get('/', [SliderController::class, 'index'])->name('slider');
@@ -71,9 +63,9 @@
         });
     });
 
-//CKeditor
-    Route::post('ckeditor/image_upload', [CKeditorController::class, 'upload'])->name('upload');
-    Route::resource('editor', CKeditorController::class);
+//CKEditor
+    Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
+    Route::resource('editor', CKEditorController::class);
 
     Route::get('novosti-{news}', [HomeController::class, 'newsSinglePost'])->name('novosti-news');
     Route::get('{title}', [HomeController::class, 'singlePost'])->name('manastir');
