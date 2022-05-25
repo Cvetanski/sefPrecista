@@ -6,7 +6,6 @@
     @stack('css')
     @yield('css')
 @stop
-
 @section('classes_body', $layoutHelper->makeBodyClasses())
 
 @section('body_data', $layoutHelper->makeBodyData())
@@ -17,8 +16,12 @@
         {{-- Top Navbar --}}
         @if($layoutHelper->isLayoutTopnavEnabled())
             @include('adminlte::partials.navbar.navbar-layout-topnav')
+            @include('partials.notification')
+
         @else
             @include('adminlte::partials.navbar.navbar')
+            @include('partials.notification')
+
         @endif
 
         {{-- Left Main Sidebar --}}
